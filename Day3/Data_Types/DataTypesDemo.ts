@@ -57,3 +57,16 @@ let randomValue: any = 10;
 randomValue = "Hello";
 randomValue = true;
 console.log("randomValue: ", randomValue); // Output: randomValue: true
+
+//6. Union Types:
+let unionVariable: number | string;
+unionVariable = 42;
+console.log("unionVariable: ", unionVariable); // Output: unionVariable: 42
+unionVariable = "Hello";
+console.log("unionVariable: ", unionVariable); // Output: unionVariable: Hello
+
+//7. Void Data Type:
+function logMessage(): void {
+    console.log("This function does not return anything.");
+}
+logMessage();
