@@ -51,3 +51,9 @@ let myVariable: null = null;
 let undefinedVariable: undefined = undefined;
 console.log("myVariable: ", myVariable);
 console.log("undefinedVariable: ", undefinedVariable);
+
+//5. Any Data Type:
+let randomValue: any = 10;
+randomValue = "Hello";
+randomValue = true;
+console.log("randomValue: ", randomValue); // Output: randomValue: true

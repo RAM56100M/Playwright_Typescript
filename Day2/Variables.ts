@@ -14,241 +14,146 @@ console.log(age);
 /*
 # Data Types in TypeScript
 
-TypeScript provides data types to define what kind of values a variable can store. It is a statically typed superset of JavaScript.
+TypeScript provides data types to define what kind of values a variable can store. It is a statically typed superset of JavaScript.*/
 
-Let's cover the important data types with examples.
+//var vs let vs const
+//------------------------------------
+/*
+1) Scope: var is function-scoped, while let and const are block-scoped.
+2) Declaration and Initialization: var declarations are hoisted to the top of their scope and initialized with undefined, while let and const declarations are hoisted but not initialized.
+3) Re-declaration: var allows re-declaration of the same variable within the same scope, while let and const do not allow re-declaration within the same scope.
+4) Reassignment: var and let can be reassigned, while const cannot be reassigned after its initial assignment.
+5) Hoisting: var declarations are hoisted to the top of their scope and initialized with undefined, while let and const declarations are hoisted but not initialized.
+ */
 
-## 1. Basic data types
+//SCOPE -Accessible Area (Function, Block, Global)
 
-### 1. String
-
-Used to store text values.
-
-```
-let employeeName: string = "Ram";
-let city: string = "Pune";
-
-console.log(employeeName);
-console.log(city);
-```
-
-### 2. Number
-
-Used for integers, decimals and negative numbers.
-
-```
-let age: number = 30;
-let salary: number = 120000;
-let percentage: number = 85.5;
-
-console.log(age);
-console.log(salary);
-```
-
-### 3. Boolean
-
-Stores either `true` or `false`.
-
-```
-let isEmployed: boolean = true;
-let isMarried: boolean = true;
-let isActive: boolean = false;
-
-console.log(isEmployed);
-```
-
-### 4. Undefined
-
-A variable that has been declared but not assigned a value.
-
-```
-let employeeId: undefined = undefined;
-```
-
-### 5. Null
-
-Represents an intentional absence of a value.
-
-```
-let employeeAddress: null = null;
-```
-
-## 2. Special data types
-
-### 6. Any
-
-Can store any type of value. TypeScript does not enforce type checking for that variable.
-
-```
-let data: any = "Ram";
-
-data = 100;
-data = true;
-data = { name: "Ram" };
-```
-
-Avoid using `any` unnecessarily.
-
-### 7. Unknown
-
-Can store any value, but requires type checking before using it.
-
-```
-let value: unknown = "Hello";
-
-if (typeof value === "string") {
-    console.log(value.toUpperCase());
-}
-```
-
-### 8. Void
-
-Used when a function does not return a value.
-
-```
-function greet(): void {
-    console.log("Hello Ram");
+//Functional Scope
+function myFunction() {
+    var x = 10;
 }
 
-greet();
-```
-
-### 9. Never
-
-Represents a value that never occurs, such as a function that always throws an error.
-
-```
-function throwError(): never {
-    throw new Error("Something went wrong");
-}
-```
-
-## 3. Collection data types
-
-### 10. Array
-
-Stores multiple values of the same type.
-
-```
-let numbers: number[] = [10, 20, 30];
-
-let names: string[] = ["Ram", "John", "David"];
-
-console.log(numbers);
-console.log(names);
-```
-
-Another syntax:
-
-```
-let marks: Array<number> = [80, 90, 95];
-```
-
-### 11. Tuple
-
-Stores a fixed sequence of values with specific types.
-
-```
-let employee: [number, string, boolean];
-
-employee = [101, "Ram", true];
-
-console.log(employee);
-```
-
-### 12. Enum
-
-Used to define a set of named constants.
-
-```
-enum Browser {
-    Chrome,
-    Firefox,
-    Edge
+//Block Scope
+if (true) {
+    let y = 20;
+    const z = 30;
 }
 
-let selectedBrowser: Browser = Browser.Chrome;
 
-console.log(selectedBrowser);
-```
+// Example 1 of variable declaration and initialization in TypeScript (Functional Scope):
 
-## 4. Advanced data types
+function variableScopeExample() {
+    if (true) {
+        var functionScopedVariable = "I am function scoped";
+        console.log(functionScopedVariable); // Accessible here
 
-### 13. Object
+    }
+    console.log(functionScopedVariable); // Accessible here as well, because var is function scoped
+}
+    variableScopeExample();
+    // Output: I am function scoped
 
-Used to store multiple properties.
+ //--------------------------------------------------
+//Example 2 of variable declaration and initialization in TypeScript (Block Scope):
 
-```
-let employee: {
-    name: string;
-    age: number;
-    isActive: boolean;
-};
+function blockScopeExample() {
+    let blockScopedVariable = "I am block scoped";
+    const greeting = "Hello, Const!";
+    console.log(blockScopedVariable); // Accessible here
+    console.log(greeting); // Accessible here
+}
 
-employee = {
-    name: "Ram",
-    age: 30,
-    isActive: true
-};
-```
+    // console.log(blockScopedVariable); // Not accessible here
+    // console.log(greeting); // Not accessible here
 
-### 14. Union
+    blockScopeExample();
+    // Output: I am block scoped
+    // Output: Hello, Const!
 
-Allows a variable to hold more than one specified type.
+    //Example 3:
 
-```
-let userId: string | number;
+    function scopedifferenceExample() {
+        if (true) {
+            var functionScopedVar = "I am function scoped";
+            let blockScopedVar = "I am block scoped";
+            const constVar = "I am a constant";
+        }
 
-userId = 101;
-userId = "EMP101";
-```
+        console.log(functionScopedVar); // Accessible here, because var is function scoped
+       //  console.log(blockScopedVar); // Not accessible here, because let is block scoped. Throws an Error: Cannot find name 'blockScopedVar'.
+        // console.log(constVar); // Not accessible here, because const is block scoped.  Throws an Error: Cannot find name 'blockScopedVar'.
+    }
+    scopedifferenceExample();
 
-### 15. Literal types
+    console.log("---Declaration /variable Assignment---");
+    //------------------------------------------------------------------------------------------------------------
+    // 2) Declaration /variable Assignment
 
-Restricts a variable to specific values.
+    // Example1: Variable declaration without initialization in TypeScript:
+    var x; // Declaration without initialization
+    console.log(x); // Output: undefined
+    x= 10; // Initialization
+    console.log(x); // Output: 10
 
-```
-let browser: "Chrome" | "Firefox" | "Edge";
+    //Exaple2: Let variable declaration without initialization in TypeScript:
+    let y;
+    console.log(y); // Output: undefined
+    y = 20; // Initialization
+    console.log(y); // Output: 20
 
-browser = "Chrome";
-```
+    //Example3: Const variable declaration without initialization in TypeScript:
+    // const z; // Error: 'const' declarations must be initialized
+    // console.log(z); // Not accessible here, because const is block scoped.  Throws an Error: Cannot find name 'blockScopedVar'.
 
-### 16. Type Alias
+    //------------------------------------------------------------------------------------------------------------------------------------
+    console.log("---Re-declaration of variable in TypeScript---");
 
-Allows you to create your own reusable type.
+    // 3) Re-declaration of variable in TypeScript:
+    // Example1: Re-declaration of var variable in TypeScript: Var allows re-declaration of the same variable within the same scope.
+    var count = 1;
+    var count = 2;
 
-```
-type Employee = {
-    name: string;
-    age: number;
-    salary: number;
-};
+    console.log(count); // Output: 2
 
-let emp1: Employee = {
-    name: "Ram",
-    age: 30,
-    salary: 120000
-};
-```
+    // Example2: Re-declaration of let and const variable in TypeScript: Let and const do not allow re-declaration within the same scope.
+    let username = "Alice";
+    // let username = "Bob"; // Error: Cannot redeclare block-scoped variable 'username'.
+    console.log(username); // Output: Alice
 
-## Quick revision table
+    // Example3: Re-declaration of const variable in TypeScript: Const does not allow re-declaration within the same scope.
+    const pi = 3.14;
+    // const pi = 3.14159; // Error: Cannot redeclare block-scoped variable 'pi'.
+    console.log(pi); // Output: 3.14
 
-| Data type | Purpose                       |
-| --------- | ----------------------------- |
-| string    | Text                          |
-| number    | Numeric values                |
-| boolean   | True / False                  |
-| undefined | Unassigned value              |
-| null      | Intentional empty value       |
-| any       | Any value without type safety |
-| unknown   | Any value with type safety    |
-| void      | No return value               |
-| never     | Never returns normally        |
-| array     | Collection of values          |
-| tuple     | Fixed-position typed values   |
-| enum      | Named constants               |
-| object    | Structured data               |
-| union     | Multiple allowed types        |
-| literal   | Specific allowed values       |
-| type      | Reusable custom type          |
-*/
+    console.log("---Reassignment of variable in TypeScript---");
+    //------------------------------------------------------------------------------------------------------------------------------------
+    // 3. Reassignment of variable in TypeScript:
+    // Example1: Reassignment of var variable in TypeScript: Var allows reassignment of the same variable within the same scope.
+    var age = 25;
+    age = 30;
+    console.log(age); // Output: 30
+
+    // Example2: Reassignment of let variable in TypeScript: Let allows reassignment of the same variable within the same scope.
+    let height = 170;
+    height = 180;
+    console.log(height); // Output: 180
+
+    // Example3: Reassignment of const variable in TypeScript: Const does not allow reassignment within the same scope.
+    const weight = 70;
+    // weight = 80; // Error: Cannot assign to 'weight' because it is a constant.
+    console.log(weight); // Output: 70
+
+    console.log("---Hoisting of variable in TypeScript---");
+    //------------------------------------------------------------------------------------------------------------------------------------
+    // 4) Hoisting of variable in TypeScript:
+    // console.log(a);
+     var a = 10; // Output: undefined (due to hoisting)
+     console.log(a); // Output: 10
+
+    // console.log(b); // Error: Cannot access 'b' before initialization
+    let b = 20; // Output: ReferenceError: Cannot access 'b' before initialization
+    console.log(b); // Output: 20
+
+    // console.log(c); // Error: Cannot access 'c' before initialization
+    const c = 30;
+    console.log(c); // Output: 30
